@@ -12,13 +12,14 @@ dependencies = [
 
 setup(
     name="ical2notion",
-    version="0.1.3",
+    version="0.1.4",
     url="https://github.com/AlexanderDavid/ical2notion",
     license="MIT",
     author="Alex Day",
     author_email="alexday135@gmail.com",
     description="iCal to Notion made simple",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
