@@ -12,7 +12,7 @@ dependencies = [
 
 setup(
     name="ical2notion",
-    version="0.1.4",
+    version="0.2.0",
     url="https://github.com/AlexanderDavid/ical2notion",
     license="MIT",
     author="Alex Day",
