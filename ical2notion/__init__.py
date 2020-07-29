@@ -50,7 +50,7 @@ def ical2notion(database, token, icals):
         # Check that it isn't in there
         cont = True
         for row in gcal_table.collection.get_rows():
-            if row.uid == event.uid:
+            if row.Name == event.name:
                 add_or_update(row, event)
                 cont = False
                 break
@@ -59,16 +59,14 @@ def ical2notion(database, token, icals):
             add_or_update(row, event)
 
 def add_or_update(row, event):
-    row.uid = event.uid
-    row.title = event.name
-    row.description = event.description
+    row.Name = event.name
     # Check if the event is an "All Day" these get messed up if we do a direct conversion
     if event.duration == timedelta(days=1):
-        row.date = NotionDate((event.begin))
+        row.Do = NotionDate((event.begin))
     else:
-        row.date = NotionDate(datetime.fromisoformat(str(event.begin)),
+        row.Do = NotionDate(datetime.fromisoformat(str(event.begin)),
                               datetime.fromisoformat(str(event.end)))
-    row.location = event.location
+    row.Type = "Event"
 
 if __name__ == "__main__":
     ical2notion()

@@ -17,6 +17,7 @@ To install clone the repository and run `python setup.py install`.
 	1. Create a new page
 	2. Create an inline table
 	3. Click "Open as page"
+	4. Populate the database with a Name (Text), Do (Date), and Type (Select with "Event" tag premade).
 	4. Copy that URL
 3. Find your ical public link
 	1. Open google calendar
@@ -26,4 +27,5 @@ To install clone the repository and run `python setup.py install`.
 
 Run `ical2notion [TOKEN] [URL] [iCal]`. You can list multiple icals at the end.
 
-
+# TODO
+- [ ] Reoccuring tasks
