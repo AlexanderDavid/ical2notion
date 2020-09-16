@@ -12,7 +12,7 @@ dependencies = [
 
 setup(
     name="ical2notion",
-    version="0.2.0",
+    version="0.3.0",
     url="https://github.com/AlexanderDavid/ical2notion",
     license="MIT",
     author="Alex Day",
@@ -36,7 +36,7 @@ setup(
         # 'Development Status :: 6 - Mature',
         # 'Development Status :: 7 - Inactive',
         "Environment :: Console",
-        "Intended Audience :: Developers",
+        "Intended Audience :: End Users/Desktop",
         "License :: OSI Approved :: MIT License",
         "Operating System :: POSIX",
         "Programming Language :: Python :: 3",
