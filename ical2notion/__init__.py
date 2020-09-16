@@ -19,6 +19,7 @@ import click
         "icals",
         nargs=-1,
 )
+@click.option('-v', '--verbose', count=True)
 def ical2notion(database, token, icals):
     """Google calendar to notion made simple."""
     # Check that the user supplied all the arguments
@@ -34,16 +35,43 @@ def ical2notion(database, token, icals):
     # Download the users ical files and get all events
     events = []
     for url in icals:
-        c = Calendar(requests.get(url).text)
-        events += list(c.timeline) #
+        # Log if verbose
+        if v == 1:
+            click.echo(f"Downloading calendar from {url}")
+        try:
+            c = Calendar(requests.get(url).text)
+            events += list(c.timeline)
+        except Exception as e:
+            # Echo the exception if verbose verbose
+            if v == 2:
+                click.echo("Exception occured while downloading calendar: {e}", err=True)
+            # Echo that it failed if just verbose
+            else:
+                click.echo("Exception occured while downloading calendar", err=True)
 
     events = [e for e in events if e > Event(begin=datetime.now())]
 
     # Authenticate with notion
-    client = NotionClient(token_v2=token)
+    try:
+        client = NotionClient(token_v2=token)
+    except requests.exceptions.HTTPError as e:
+        # Echo the exception if verbose verbose
+        if v == 2:
+            click.echo("Exception occured while authenticating with notion: {e}", err=True)
+        # Echo that it failed if just verbose
+        else:
+            click.echo("Exception occured while authenticating with notion", err=True)
 
     # Add each event to the notion database
-    gcal_table = client.get_collection_view(database)
+    try:
+        gcal_table = client.get_collection_view(database)
+    except Exception as e:
+        # Echo the exception if verbose verbose
+        if v == 2:
+            click.echo("Exception occured while accessing notion database: {e}", err=True)
+        # Echo that it failed if just verbose
+        else:
+            click.echo("Exception occured while accessing notion database", err=True)
 
 
     for event in events:
