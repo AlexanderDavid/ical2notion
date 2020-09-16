@@ -22,16 +22,6 @@ import click
 @click.option('-v', '--verbose', count=True)
 def ical2notion(database, token, icals):
     """Google calendar to notion made simple."""
-    # Check that the user supplied all the arguments
-    if not database:
-        click.echo("Please supply a notion database link")
-        exit()
-    if not token:
-        click.echo("Please supply a notion token")
-    if not icals:
-        click.echo("Please supply one or more ical links")
-
-
     # Download the users ical files and get all events
     events = []
     for url in icals:
