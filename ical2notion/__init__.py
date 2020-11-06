@@ -20,20 +20,20 @@ import click
         nargs=-1,
 )
 @click.option('-v', '--verbose', count=True)
-def ical2notion(database, token, icals):
+def ical2notion(database, token, icals, verbose):
     """Google calendar to notion made simple."""
     # Download the users ical files and get all events
     events = []
     for url in icals:
         # Log if verbose
-        if v == 1:
+        if verbose == 1:
             click.echo(f"Downloading calendar from {url}")
         try:
             c = Calendar(requests.get(url).text)
             events += list(c.timeline)
         except Exception as e:
             # Echo the exception if verbose verbose
-            if v == 2:
+            if verbose == 2:
                 click.echo("Exception occured while downloading calendar: {e}", err=True)
             # Echo that it failed if just verbose
             else:
@@ -46,7 +46,7 @@ def ical2notion(database, token, icals):
         client = NotionClient(token_v2=token)
     except requests.exceptions.HTTPError as e:
         # Echo the exception if verbose verbose
-        if v == 2:
+        if verbose == 2:
             click.echo("Exception occured while authenticating with notion: {e}", err=True)
         # Echo that it failed if just verbose
         else:
@@ -57,7 +57,7 @@ def ical2notion(database, token, icals):
         gcal_table = client.get_collection_view(database)
     except Exception as e:
         # Echo the exception if verbose verbose
-        if v == 2:
+        if verbose == 2:
             click.echo("Exception occured while accessing notion database: {e}", err=True)
         # Echo that it failed if just verbose
         else:
